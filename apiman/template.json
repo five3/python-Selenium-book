@@ -1,0 +1,10 @@
+{
+  "template1": {
+    "url": "http://httpbin.org/get",
+    "method": "get",
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "encoding": "utf-8"
+  }
+}

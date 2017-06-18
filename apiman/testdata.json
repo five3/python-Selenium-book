@@ -1,0 +1,17 @@
+[{
+  "name" : "demo Testing",
+  "comment" : "",
+  "priority" : 1,
+  "category" : "test",
+  "template" : "template1",
+  "tags" : {"smoking" : 1},
+  "version" : 1,
+  "url" : "http://httpbin.org/get",
+  "method" : "get",
+  "data" : "k1=v1&k2=v2",
+  "headers" : {"Content-Type":"application/x-www-form-urlencoded"},
+  "files" : [],
+  "expect" : "success",
+  "checkType" : "include",
+  "encoding" : "utf-8"
+}]
