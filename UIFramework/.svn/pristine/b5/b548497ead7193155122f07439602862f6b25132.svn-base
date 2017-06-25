@@ -1,0 +1,41 @@
+#logger.conf
+###############################################
+[loggers]
+keys=root,result,infomation
+[logger_root]
+level=DEBUG
+handlers=infohander,resulthander
+[logger_result]
+level=CRITICAL
+handlers=resulthander,consolehander
+qualname=result
+propagate=0
+[logger_infomation]
+level=DEBUG
+handlers=infohander,consolehander
+qualname=infomation
+propagate=0
+###############################################
+[handlers]
+keys=resulthander,infohander,consolehander
+[handler_resulthander]
+class=FileHandler
+formatter=form01
+args=('testresult.log', 'w')
+[handler_infohander]
+class=FileHandler
+formatter=form02
+args=('testinfo.log', 'w')
+[handler_consolehander]
+class=StreamHandler
+formatter=form02
+args=(sys.stderr,)
+###############################################
+[formatters]
+keys=form01,form02
+[formatter_form01]
+format=%(message)s::%(filename)s.%(funcName)s
+datefmt=%Y-%m-%d %H:%M:%S
+[formatter_form02]
+format=%(asctime)s %(filename)s.%(funcName)s[line:%(lineno)d] %(levelname)s %(message)s
+datefmt=%Y-%m-%d %H:%M:%S
