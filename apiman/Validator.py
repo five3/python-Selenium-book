@@ -25,18 +25,18 @@ class Validator(object):
     @staticmethod
     def _equal(content, expect):
         msg = u'期望结果为：%s， 实际结果为：%s' % (expect, content)
-        return True if content == expect else (False, msg)
+        return (True, None) if content == expect else (False, msg)
 
     @staticmethod
     def _include(content, expect):
         msg = u'期望结果为包含：%s，实际未包含' % expect
-        return True if expect in content else (False, msg)
+        return (True, None) if expect in content else (False, msg)
 
     @staticmethod
     def _regex(content, expect):
         r = re.search(expect, content, re.DOTALL)
         msg = u"期望结果为匹配：%s，实际未匹配成功" % expect
-        return True if r else (False, msg)
+        return (True, None) if r else (False, msg)
 
     @staticmethod
     def _json(content, expect):

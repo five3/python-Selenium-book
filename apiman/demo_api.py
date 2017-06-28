@@ -7,7 +7,11 @@ from hook import *
 from Validator import Validator
 import time
 
-CONTEXT = {"continue" : True, "utils" : object()}
+class utils(object):
+    def __init__(self):
+        pass
+
+CONTEXT = {"continue" : True, "utils" : utils()}
 COUNT = PASS = FAIL = SKIP = 0
 QUITE = False
 USAGE = 'Usage: \r\n\t' \
@@ -140,12 +144,12 @@ def verify_result(code, txt, expect, ttype):
 
 def run(args):
     global CONTEXT, PASS, FAIL, SKIP
-    if 'url' not in args or 'method' not in args or 'expect' not in args:
+    if 'url' not in args or 'method' not in args:
         SKIP += 1
-    print u'开始执行测试用例: %s' % args['name']
+    print u'开始执行测试用例: %s' % args.get('name', u'未命名')
     request_data = [args['url'], args['method'],
                      args.get('data'), args.get('headers'),
-                     args('files'), args('encoding')]
+                     args.get('files'), args.get('encoding')]
     [fun(request_data, CONTEXT) for fun in PRE_REQUEST_LIST]
     code, txt = demo(*request_data)
     [fun(code, txt, CONTEXT) for fun in POST_REQUEST_LIST]
@@ -154,7 +158,7 @@ def run(args):
     if not QUITE:
         print code
         print txt
-    flag, msg = verify_result(code, txt, args['expect'], args['checkType'])
+    flag, msg = verify_result(code, txt, args.get('expect', ''), args.get('checkType', "include"))
     args['result'] = flag
     args['msg'] = msg
     add_result(args)
@@ -323,18 +327,18 @@ def get_test_data_by_case_name(name):
 CONTEXT['utils'].get_test_data_by_case_name=get_test_data_by_case_name
 
 
-def main():
-    args = parse_args()
-    task_name = args.get('task_name')
-    if not task_name:
-        args['task_name'] = task_name = int(time.time())
-    config_file = args['config_file']
-    db_str = args['db_str']
+def main(args):
+    global COUNT
+    task_name = args.get('task_name', '')
+    task_name = '%s_%s' % (task_name, int(time.time()))
+    args['task_name'] = task_name
+    config_file = args.get('config_file')
+    db_str = args.get('db_str')
     if config_file:
         run_with_json(config_file)
     elif db_str:
         run_with_db(args)
-    elif args['url'] and args['method'] and args['expect']:
+    elif args['url'] and args['method']:
         [fun(args, 1, CONTEXT) for fun in PRE_TESTING_LIST]
         COUNT = 1
         run(args)
@@ -349,6 +353,8 @@ def main():
     }
     add_summary(task_name, summary)
     [fun(summary, CONTEXT) for fun in POST_ALL_TESTING_LIST]
+    return summary
 
 if __name__ == '__main__':
-    main()
+    args = parse_args()
+    main(args)

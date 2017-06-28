@@ -1,1 +1,50 @@
-<h1>I am in index</h1>
+<html>
+<head>
+    <title>APIMAN接口测试工具</title>
+    <style>
+        ul li {
+            margin : 5px;
+        }
+        li span {
+            display: inline-block;
+            width:100px;
+        }
+        li input {
+            width:250px;
+        }
+    </style>
+    <script></script>
+</head>
+<body>
+<form action="/testing" method="post"
+      enctype="application/x-www-form-urlencoded" target="_blank">
+    <h2>单用例测试区</h2>
+    <ul>
+        <li><span>URL：</span><input type="text" name="url"></li>
+        <li><span>Method：</span><input type="text" name="method"></li>
+        <li><span>Data：</span><input type="text" name="data"></li>
+        <li><span>Headers：</span><input type="text" name="headers"></li>
+        <li><span>Files：</span><input type="text" name="files"></li>
+        <li><span>Encoding：</span><input type="text" name="encoding"></li>
+        <li><span>CheckType：</span><input type="text" name="check_type"></li>
+        <li><span>Expect：</span><input type="text" name="expect"></li>
+    </ul>
+    <input type="submit" value="提交">
+</form>
+<hr>
+<form action="/testing" method="post"
+      enctype="application/x-www-form-urlencoded" target="_blank">
+    <h2>批量用例测试区</h2>
+    <ul>
+        <li><span>DB连接串：</span><input type="text" name="db_str"
+                         placeholder="如：mongo://localhost:27017/apiman"></li>
+        <li><span>测试用例名：</span><input type="text" name="test_name" placeholder="支持模糊查询"></li>
+        <li><span>用例优先级：</span><input type="text" name="test_priority" placeholder="如：1"></li>
+        <li><span>用例分类：</span><input type="text" name="category" placeholder="如：登录模块"></li>
+        <li><span>用例标签：</span><input type="text" name="tag" placeholder="如：冒烟测试"></li>
+        <li><span>用例版本号：</span><input type="text" name="version" placeholder="如：1"></li>
+    </ul>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>

@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-PRE_ALL_TESTING_LIST = PRE_TESTING_LIST = PRE_REQUEST_LIST = []
-POST_REQUEST_LIST = POST_TESTING_LIST = POST_ALL_TESTING_LIST = []
+PRE_ALL_TESTING_LIST = []
+PRE_TESTING_LIST = []
+PRE_REQUEST_LIST = []
+POST_REQUEST_LIST = []
+POST_TESTING_LIST = []
+POST_ALL_TESTING_LIST = []
 
 
 def pre_all_testing_demo(all_test_data, context):
