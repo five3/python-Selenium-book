@@ -172,6 +172,13 @@ def run(args):
     return flag
 
 
+def add_task(test_data):
+    task_name = test_data.get('task_name', int(time.time())),
+    test_data['task_name'] = task_name
+    info = {'name': task_name}
+    write_mongo(collection='task', record=info)
+
+
 def add_result(test_data):
     result_info = {
         "task_name" : test_data.get('task_name'),
@@ -223,6 +230,8 @@ def read_mongo(host="127.0.0.1", port=27017, db_name='apiman', collection='testd
     coll = db[collection]
     return coll.find(condition) ##获取记录
 
+def get_task_list():
+    return read_mongo(collection='task')
 
 def run_with_json(config_file):
     global CONTEXT, COUNT
@@ -241,6 +250,7 @@ def run_with_json(config_file):
 
 def run_with_db(args):
     global CONTEXT, COUNT
+    add_task(args)
     db_str = args['db_str']
     test_name = args['test_name']
     test_priority = args['test_priority']

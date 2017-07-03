@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>APIMAN接口测试工具</title>
+    <style>
+        ul li {
+            margin : 5px;
+        }
+        li span {
+            display: inline-block;
+            width:100px;
+        }
+        li input {
+            width:250px;
+        }
+    </style>
+    <script></script>
+</head>
+<body>
+
+<h2>任务列表</h2>
+    <ul>
+    {% for task in tasks %}
+        <li><a href="/result?taskname={{task.name}}">{{task.name}}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

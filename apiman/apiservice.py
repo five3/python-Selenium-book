@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import json, traceback, sys
-from demo_api import main
+from demo_api import main, get_task_list
 
 def do_testing_with_db(args):
     try:

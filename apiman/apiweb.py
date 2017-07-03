@@ -31,9 +31,14 @@ def testing():
         result = {'error_code' : -1, 'error_msg' : '请求数据错误!'}
     return json.dumps(result)
 
-@app.route('/status')
+@app.route('/task')
 def status():
-    return render_template('status.html')
+    tasks = get_task_list()
+    return render_template('task.html', tasks=tasks)
+
+@app.route('/result')
+def status():
+    return render_template('result.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
