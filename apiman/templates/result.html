@@ -1,1 +1,44 @@
-<h1>I am in status</h1>
+<html>
+<head>
+    <title>APIMAN接口测试工具</title>
+    <style>
+        ul li {
+            margin : 5px;
+        }
+        li span {
+            display: inline-block;
+            width:100px;
+        }
+        li input {
+            width:250px;
+        }
+    </style>
+    <script></script>
+</head>
+<body>
+
+<h2>用例结果页</h2>
+    <table>
+        <tr>
+            <th>任务名</th>
+            <th>项目名</th>
+            <th>用例名</th>
+            <th>分类</th>
+            <th>版本</th>
+            <th>执行结果</th>
+            <th>执行时间</th>
+        </tr>
+    {% for result in results %}
+        <tr>
+            <td>{{result.task_name}}</td>
+            <td>{{result.project_name}}</td>
+            <td>{{result.name}}</td>
+            <td>{{result.category}}</td>
+            <td>{{result.version}}</td>
+            <td>{{result.result}}</td>
+            <td>{{result.time}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

@@ -233,6 +233,28 @@ def read_mongo(host="127.0.0.1", port=27017, db_name='apiman', collection='testd
 def get_task_list():
     return read_mongo(collection='task')
 
+def get_result_list():
+    return read_mongo(collection='testresult')
+
+def get_condition_by_test_set(test_set):
+    condition = {'name' : test_set}
+    r = read_mongo(collection='testset', condition=condition)
+    if r:
+        return r[0]
+
+
+def save_test_set(data):
+    test_set = {
+        "name": data.get('name'),
+        "db_str": data.get('db_str'),
+        "test_name": data.get('test_name'),
+        "test_priority": data.get('test_priority'),
+        "category": data.get('category'),
+        "tag": data.get('tag'),
+        "version": data.get('version')
+    }
+    return write_mongo(collection="testset", record=test_set)
+
 def run_with_json(config_file):
     global CONTEXT, COUNT
     if os.path.exists(config_file):
