@@ -15,10 +15,10 @@ mongo = PyMongo(app)
 def index():
     return render_template('index.html')
 
+
 @app.route('/testing', methods=['POST'])
 def testing():
     data = to_dict(request.form)
-    print data
     if data.get('db_str'):
         db_str = data.get('db_str')
         if db_str:
@@ -32,15 +32,22 @@ def testing():
         result = {'error_code' : -1, 'error_msg' : u'请求数据错误!'}
     return json.dumps(result)
 
+
 @app.route('/task')
 def status():
     tasks = get_task_list()
     return render_template('task.html', tasks=tasks)
 
+
 @app.route('/result')
 def result():
-    results = get_task_list()
+    task_name = request.args.get('task_name')
+    if task_name:
+        results = get_result_list(task_name)
+    else:
+        results = []
     return render_template('result.html', results=results)
+
 
 @app.route('/testset', methods=['POST', 'GET'])
 def test_set():

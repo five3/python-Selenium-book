@@ -163,12 +163,12 @@ def run(args):
     args['msg'] = msg
     add_result(args)
     add_log(args)
-    [fun(flag, CONTEXT) for fun in POST_TESTING_LIST]
+    [fun(flag, args, CONTEXT) for fun in POST_TESTING_LIST]
     if flag:
         PASS += 1
     else:
         FAIL += 1
-    print u'测试用例执行结束: %s' % args['name']
+    print u'测试用例执行结束: %s' % args.get('name', u'未命名')
     return flag
 
 
@@ -194,7 +194,8 @@ def add_result(test_data):
 
 def add_summary(task_name, summary):
     info = {"task_name" : task_name}
-    write_mongo(collection="summary", record=info.update(summary))
+    info.update(summary)
+    write_mongo(collection="summary", record=info)
 
 
 def add_log(test_data):
@@ -233,8 +234,11 @@ def read_mongo(host="127.0.0.1", port=27017, db_name='apiman', collection='testd
 def get_task_list():
     return read_mongo(collection='task')
 
-def get_result_list():
-    return read_mongo(collection='testresult')
+def get_result_list(task_name):
+    condition = {'task_name' : task_name}
+    print condition
+    return read_mongo(collection='testresult', condition=condition)
+
 
 def get_condition_by_test_set(test_set):
     condition = {'name' : test_set}
